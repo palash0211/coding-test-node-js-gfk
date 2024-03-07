@@ -5,7 +5,6 @@ import { Application } from 'express';
 import { AppConstant } from './utils/AppConstant';
 import * as dotenv from 'dotenv';
 
-const envPath = path.resolve(__dirname, '..', '.env');
 dotenv.config();
 console.log(process.env.NODE_ENV)
 /**

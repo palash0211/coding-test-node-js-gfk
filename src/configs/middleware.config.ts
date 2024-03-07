@@ -3,8 +3,6 @@ import cookieParser from 'cookie-parser';
 import helmet from 'helmet';
 import cors from 'cors';
 import { json, urlencoded } from 'body-parser';
-import path from 'path';
-const expressLayouts = require('express-ejs-layouts');
 
 /**
  *
