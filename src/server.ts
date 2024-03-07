@@ -1,37 +1,49 @@
-// Create express app
-const express = require("express");
-const app = express()
-const db = require("./database.ts")
+import http from 'http';
+import path from 'path';
+import { App } from './App';
+import { Application } from 'express';
+import { AppConstant } from './utils/AppConstant';
+import * as dotenv from 'dotenv';
 
-// Server port
-const HTTP_PORT = 8000
-// Start server
-app.listen(HTTP_PORT, () => {
-    console.log("Server running on port http://localhost:%PORT%/".replace("%PORT%", HTTP_PORT.toString()))
-});
-// Root endpoint
-app.get("/", (req, res, next) => {
-    res.json({ "message": "Ok" })
-});
+const envPath = path.resolve(__dirname, '..', '.env');
+dotenv.config();
+console.log(process.env.NODE_ENV)
+/**
+ * @createServer
+ */
+const port: string | number | false = (process.env.PORT || AppConstant.SERVER_PORT);
+const apps: Application = new App().app;
+apps.set(AppConstant.SERVER_PORT, port);
+export const server = http.createServer(apps);
 
-app.get("/api/posts", (req, res, next) => {
-    const sql = "select * from post"
-    const params = []
-    db.all(sql, params, (err, rows) => {
-        if (err) {
-          res.status(400).json({ "error": err.message });
-          return;
-        }
-        res.json({
-            "message":"success",
-            "data":rows
-        })
-      });
-});
+/**
+ * 
+ * @param error 
+ * @description Error Handling
+ */
+const onError = (error: NodeJS.ErrnoException): void => {
+    console.log(error);
+    process.exit(1);
+}
 
-// Insert here other API endpoints
+/**
+ * 
+ * @param Listener 
+ * @description App Listening
+ */
+const onListening = (): void => {
+    const addr = server.address();
+    const bind = typeof addr === 'string' ? `pipe ${addr}` : `port ${addr?.port}`;
+    console.log(`listening on : ${bind}`);
+}
 
-// Default response for any other request
-app.use(function(req, res){
-    res.status(404);
-});
+/**
+ * 
+ * @param Initialize 
+ * @description App Initialize
+ */
+server.listen(apps.get(AppConstant.SERVER_PORT));
+server.on(AppConstant.ERROR_MESSAGES.SERVER_ERROR, onError);
+server.on('listening', onListening);
+
+
