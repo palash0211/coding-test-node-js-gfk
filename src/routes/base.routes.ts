@@ -1,6 +1,7 @@
 import express, { Application, Request, Response, NextFunction, Router } from 'express';
 import { RouteConstant } from './route-constants'; // Ensure you have a file with your route constants
 import { UserController } from '../controller/users.controller';
+import { ErrorType, ResponseType } from '../configs/response-type.config';
 
 export class BaseRouter {
   private router: Router;
@@ -29,9 +30,10 @@ export class BaseRouter {
     // Error handling middleware
     this.router.use(
       (err: Error, req: Request, res: Response, next: NextFunction) => {
+        const errResponse = ResponseType.error(ErrorType.INTERNAL_SERVER_ERROR, `Internal Server Error`)
         res
           .status(RouteConstant.STATUS_CODES.INTERNAL_SERVER_ERROR)
-          .send(`Internal Server Error: ${err}`);
+          .send(errResponse);
       }
     );
   }
