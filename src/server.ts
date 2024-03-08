@@ -4,6 +4,7 @@ import { App } from './App';
 import { Application } from 'express';
 import { AppConstant } from './utils/AppConstant';
 import * as dotenv from 'dotenv';
+import { LoggerService } from './utils/logger.utils';
 
 dotenv.config();
 console.log(process.env.NODE_ENV)
@@ -33,7 +34,7 @@ const onError = (error: NodeJS.ErrnoException): void => {
 const onListening = (): void => {
     const addr = server.address();
     const bind = typeof addr === 'string' ? `pipe ${addr}` : `port ${addr?.port}`;
-    console.log(`listening on : ${bind}`);
+    LoggerService.writeInfoLog(`listening on : ${bind}`);
 }
 
 /**

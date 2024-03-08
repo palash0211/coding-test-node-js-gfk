@@ -10,9 +10,9 @@ export const RouteConstant = {
   },
 
   USER_MODULE: {
-    FETCH_USER: "/users",
+    FETCH_USER: "/:id",
     DELETE_USER: "/:id",
-    UPDATE_USER: "/:id",
-    POST_USER: "/post-error"
+    UPDATE_USER: "/users",
+    POST_USER: "/users"
   }
 }
