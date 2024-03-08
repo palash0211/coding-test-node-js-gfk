@@ -1,4 +1,5 @@
 import { Model, Table, Column, DataType } from 'sequelize-typescript';
+import { CryptoUtil } from '../utils/encrypt.utils';
 
 @Table({
   tableName: 'users',
@@ -36,4 +37,9 @@ export class User extends Model {
     allowNull: false,
   })
   age: number;
+
+  get decryptedPassword(): string {
+    // Assuming CryptoUtil.decrypt is a synchronous operation
+    return CryptoUtil.decrypt(this.getDataValue('password'));
+  }
 }

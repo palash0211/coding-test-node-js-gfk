@@ -4,7 +4,7 @@
   "description": "Express REST API",
   "main": "src/server.ts",
   "scripts": {
-    "build": "tsc && copy .env dist",
+    "build": "npx tsc && copy .env dist",
     "start": "node src/server.ts",
     "test-watch": "jest --watchAll",
     "test": "jest"
@@ -29,6 +29,7 @@
     "sequelize-typescript": "^2.1.6",
     "sqlite3": "^5.1.7",
     "supertest": "^6.3.4",
+    "uuid4": "^2.0.3",
     "winston": "^3.12.0",
     "winston-daily-rotate-file": "^5.0.0"
   },

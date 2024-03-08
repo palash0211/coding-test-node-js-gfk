@@ -15,6 +15,12 @@ export class BaseRouter {
     // Middleware for handling the /users route
     this.router.get(RouteConstant.USER_MODULE.FETCH_USER, this.userController.fetchUsers.bind(this.userController));
 
+    this.router.post(RouteConstant.USER_MODULE.POST_USER, this.userController.createUser.bind(this.userController));
+
+    this.router.put(RouteConstant.USER_MODULE.UPDATE_USER, this.userController.updateUser.bind(this.userController));
+
+    this.router.delete(RouteConstant.USER_MODULE.DELETE_USER, this.userController.deleteUser.bind(this.userController));
+
     // Default route
     this.router.use(RouteConstant.WILD_ROUTE, (req: Request, res: Response) => {
       res.status(RouteConstant.STATUS_CODES.OK).send('Welcome to the default route');
