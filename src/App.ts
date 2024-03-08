@@ -16,8 +16,7 @@ export class App {
 
   /**
    * @description initialize mongoDb Server Connection
-   * @author EPS - Focus Team
-   * @private
+   * @author
    * @memberof Server
    */
   private initDatabaseConfig(): void {
