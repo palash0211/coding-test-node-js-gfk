@@ -23,10 +23,9 @@ export class BaseRouter {
     // Error handling middleware
     this.router.use(
       (err: Error, req: Request, res: Response, next: NextFunction) => {
-        console.error(err.stack); // Log the error stack for debugging
         res
           .status(RouteConstant.STATUS_CODES.INTERNAL_SERVER_ERROR)
-          .send('Internal Server Error');
+          .send(`Internal Server Error: ${err}`);
       }
     );
   }
